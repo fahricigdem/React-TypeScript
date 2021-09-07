@@ -5,12 +5,21 @@ interface IProps{
 }
 
 const Hellos:React.FC<IProps> = ({hellos}) => {
+    
+    const handleClick=(e:React.MouseEvent<HTMLParagraphElement>)=>{
+        console.log(e.target, "clicked")
+    }
 
+    const handleDoubleClick=(index:number)=>{
+        console.log("Element Index is ",index)
+    }
+    
     const Hellos = hellos.map((name,index)=>{
         return(
-            <p key={index}>Hello {name}</p>
+            <p key={index} onClick={handleClick} onDoubleClick={()=>handleDoubleClick(index)}>Hello {name}</p>
         )
     })
+    
     return ( 
         <>
             {Hellos}

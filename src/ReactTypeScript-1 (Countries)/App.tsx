@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CountryType } from "../types";
+import { CountryType } from "./types";
 import { useState, useEffect } from "react";
 import Country from "./Country";
 import Loading from "./Loading";
