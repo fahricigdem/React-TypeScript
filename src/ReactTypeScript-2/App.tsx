@@ -1,6 +1,7 @@
 import React from 'react';
 import { Hello } from './Hello';
 import Hellos from './Hellos';
+import Test from './test';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Hello name="Onur" onHappen={sayName} handleChange={handleChange}/>
         <hr />
         <Hellos hellos={["Ali","Veli","Robert","John"]} />
+        <Test/>
         </>
     )
 };
