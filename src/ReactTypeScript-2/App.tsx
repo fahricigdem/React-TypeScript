@@ -17,6 +17,7 @@ function App() {
         <>
         <Hello name="Fahri" onHappen={name=>console.log(name)} handleChange={handleChange}/>
         <Hello name="Onur" onHappen={sayName} handleChange={handleChange}/>
+        
         <hr />
         <Hellos hellos={["Ali","Veli","Robert","John"]} />
         <Test/>
