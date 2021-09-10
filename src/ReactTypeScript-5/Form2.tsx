@@ -5,7 +5,7 @@ import {
   FormHelperText,
   FormLabel,
 } from "@chakra-ui/form-control";
-import { Input, InputProps, FormControlProps } from "@chakra-ui/react";
+import { Input, InputProps, FormControlProps, VStack } from "@chakra-ui/react";
 import { Formik, Field, Form, useField } from "formik";
 import * as React from "react";
 import { initialValues } from "./initialValues";
@@ -14,7 +14,7 @@ import * as Yup from "yup";
 const validationSchema = Yup.object({
   firstName: Yup.string()
     .required("First Name is required")
-    .min(5, "Must be exactly 5 digits"),
+    .min(5, "Must be minimum 5 digits"),
   lastName: Yup.string().required(),
 });
 
@@ -60,7 +60,7 @@ const InputControl: React.FC<InputControlProps> = (
 };
 const Form2 = () => {
   return (
-    <div>
+    <VStack p="3">
       <Formik
         initialValues={initialValues}
         onSubmit={(data, { setSubmitting }) => {
@@ -89,14 +89,14 @@ const Form2 = () => {
               <InputControl name="lastName" placeholder="Last Name" />
             </ChakraFormControl>
 
-            <Button disabled={isSubmitting} type="submit">
+            <Button disabled={isSubmitting} type="submit" w="100%">
               Submit
             </Button>
             <pre>{JSON.stringify(values, null, 2)}</pre>
           </Form>
         )}
       </Formik>
-    </div>
+    </VStack>
   );
 };
 
