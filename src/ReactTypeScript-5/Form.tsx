@@ -36,7 +36,7 @@ interface IValues {
 }
 
 const onSubmit = (values: IValues) => {
-  sleep(300).then(() => {
+  sleep(2000).then(() => {
     window.alert(JSON.stringify(values, null, 2));
   });
 };
