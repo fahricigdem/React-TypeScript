@@ -15,6 +15,8 @@ export const FormExample2 = (props) => {
 
   console.log(errors);
   //console.log("watch:", watch("name"));
+  //console.log("watch:", watch("surName"));
+  //console.log("watch:", watch("age"));
 
   return (
     <Box p="4" m="4" border="1px" borderColor="green.200">
@@ -34,9 +36,17 @@ export const FormExample2 = (props) => {
           <Input defaultValue={props.kimlik.surName} {...register("surName")} />
           <Input
             defaultValue={props.kimlik.age}
-            type="number"
-            {...register("age")}
+            //type="number"
+            {...register("age", {
+              required: "yas bilgisi mecburidir!",
+              //setValueAs: (v) => parseInt(v),
+              validate: {
+                onsekiz: (value) => value > 17 || "18 yas alti olmaz!",
+                altmis: (value) => value < 60 || "60 yas ve üstü olmaz!",
+              },
+            })}
           />
+          {errors.age && <Text color="red.500">{errors.age.message} </Text>}
           <Button type="submit">Submit</Button>
         </VStack>
       </form>
