@@ -9,7 +9,11 @@ export const FormExample2 = (props) => {
     register,
     formState: { errors },
     watch,
+    getValues,
   } = useForm({ mode: "onBlur" });
+
+  //const { ...methods } = useForm();
+  //console.log(methods);
 
   const onSubmit = (data) => props.handleKimlik(data);
 
@@ -17,6 +21,7 @@ export const FormExample2 = (props) => {
   //console.log("watch:", watch("name"));
   //console.log("watch:", watch("surName"));
   //console.log("watch:", watch("age"));
+  //console.log(getValues("name"));
 
   return (
     <Box p="4" m="4" border="1px" borderColor="green.200">
