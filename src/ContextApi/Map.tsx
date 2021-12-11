@@ -3,7 +3,7 @@ import { FilterContext } from "./FilterContext";
 import { Filters } from "./Filters";
 import { FilterProvider } from "./FilterContext";
 
-export const Map = (params) => {
+export const Map = () => {
   return (
     <FilterProvider>
       <Liste />

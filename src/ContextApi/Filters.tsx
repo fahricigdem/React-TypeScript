@@ -4,7 +4,7 @@ import { FilterContext } from "./FilterContext";
 export const Filters = (params) => {
   const { value1, value2 } = useContext(FilterContext);
   const { setFilter1 } = value1;
-  const { setFilter2, filter2 } = value2;
+  const { setFilter2 } = value2;
   console.log(useContext(FilterContext));
   return (
     <div style={{ border: "1px red solid", display: "inline-block" }}>
