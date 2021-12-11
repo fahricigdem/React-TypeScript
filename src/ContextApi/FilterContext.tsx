@@ -8,10 +8,7 @@ export const FilterProvider = (props) => {
 
   return (
     <FilterContext.Provider
-      value={{
-        value1: { filter1, setFilter1 },
-        value2: { filter2, setFilter2 },
-      }}
+      value={{ filter1, setFilter1, filter2, setFilter2 }}
     >
       {props.children}
     </FilterContext.Provider>

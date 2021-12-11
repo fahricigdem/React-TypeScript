@@ -12,10 +12,7 @@ export const Map = () => {
 };
 
 const Liste = () => {
-  const { value1, value2 } = useContext(FilterContext);
-
-  const { filter1 } = value1;
-  const { filter2 } = value2;
+  const { filter1, filter2 } = useContext(FilterContext);
 
   const Cities = [90, 23, 44, 55, 66, 70, 26];
   const renderedCities = Cities.map((c) => {
