@@ -10,8 +10,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 //import { App } from "./App";
 //import { App1 } from "./App1";
 //import { App } from "./react-hook-form/App";
-import { App } from "./ContextApi/App";
-
+//import { App } from "./ContextApi/App";
+import { App } from "./SelectwithObject/App";
 ReactDOM.render(
   <ChakraProvider>
     <App />
