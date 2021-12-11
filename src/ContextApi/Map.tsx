@@ -15,8 +15,8 @@ const Liste = () => {
   const { value1, value2 } = useContext(FilterContext);
   const { filter1 } = value1;
   const { filter2 } = value2;
-  console.log("liste-->", filter1);
-  const Cities = [100, 23, 44, 55, 66, 70, 26];
+
+  const Cities = [90, 23, 44, 55, 66, 70, 26];
   const renderedCities = Cities.map((c) => {
     if (c > filter1 && c < filter2) return <p>{c}</p>;
     return <p>x</p>;
