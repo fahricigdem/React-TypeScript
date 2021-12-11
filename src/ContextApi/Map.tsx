@@ -13,6 +13,7 @@ export const Map = (params) => {
 
 const Liste = () => {
   const { value1, value2 } = useContext(FilterContext);
+
   const { filter1 } = value1;
   const { filter2 } = value2;
 
