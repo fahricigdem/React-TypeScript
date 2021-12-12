@@ -10,12 +10,10 @@ import {
 import "@reach/combobox/styles.css";
 
 export const PostalCombo = ({ postalcodes }) => {
-  //console.log("alinan postalcodes", postalcodes);
-
-  const [postalCode, setPostalCode] = useState("00000");
+  const [postalCode, setPostalCode] = useState("");
   const [term, setTerm] = useState("");
 
-  //let list = postalcodes.filter((p) => p.includes(term)).slice(0, 10);
+  console.log("selected post", postalCode);
 
   let list = [...postalcodes].filter((l) => l.includes(term));
 
