@@ -1,3 +1,4 @@
+import { HStack, Select, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { turbines } from "./turbines";
 
@@ -9,9 +10,11 @@ export const ModelSelect2 = () => {
     new Set(turbines.map((t) => t.manufacturer))
   );
 
-  const manufacturerOptions = manufacturers.map((manufacturer) => (
-    <option value={manufacturer}> {manufacturer} </option>
-  ));
+  const manufacturerOptions = manufacturers
+    .sort()
+    .map((manufacturer) => (
+      <option value={manufacturer}> {manufacturer} </option>
+    ));
 
   console.log(manufacturer, id);
 
@@ -20,40 +23,45 @@ export const ModelSelect2 = () => {
   if (manufacturer) {
     turbines.map((turbine) => {
       if (turbine.manufacturer === manufacturer) {
-        models = [...models, turbine.name];
+        models = [...models, { name: turbine.name, id: turbine._id }];
       }
       return null;
     });
-    models = Array.from(new Set(models));
   }
 
   const modelOptions = models.map((model) => (
-    <option value={model}> {model} </option>
+    <option value={model.id}>{model.name}</option>
   ));
 
   return (
-    <div>
-      <select
-        onChange={(e) => {
-          setManufacturer(e.target.value);
-          setId("");
-        }}
-      >
-        <option value=""> Manufacturer </option>
-        {manufacturerOptions}
-      </select>
-      <select
-        onChange={(e) => setId(e.target.value)}
-        disabled={manufacturer.length === 0}
-      >
-        <option value=""> Modell </option>
-        {modelOptions}
-      </select>
+    <>
+      <HStack w="30rem">
+        <Select
+          onChange={(e) => {
+            setManufacturer(e.target.value);
+            setId("");
+          }}
+        >
+          <option value=""> Manufacturer - Alle</option>
+          {manufacturerOptions}
+        </Select>
+        <Select
+          onChange={(e) => setId(e.target.value)}
+          disabled={manufacturer.length === 0}
+          value=""
+        >
+          <option value="">
+            Modell -{" "}
+            {id ? turbines.filter((t) => (t._id = id))[0].name : "Alle"}
+          </option>
+          {modelOptions}
+        </Select>
+      </HStack>
       <br />
       <br />
       <p>
         {manufacturer} {manufacturer && id}
       </p>
-    </div>
+    </>
   );
 };
