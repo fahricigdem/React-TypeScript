@@ -33,14 +33,17 @@ export const ModelSelect2 = () => {
 
   return (
     <div>
-      <select onChange={(e) => setManufacturer(e.target.value)}>
+      <select
+        onChange={(e) => {
+          setManufacturer(e.target.value);
+          setId("");
+        }}
+      >
         <option value=""> Manufacturer </option>
         {manufacturerOptions}
       </select>
-      <br />
-      <br />
       <select
-        onChange={(e) => setManufacturer(e.target.value)}
+        onChange={(e) => setId(e.target.value)}
         disabled={manufacturer.length === 0}
       >
         <option value=""> Modell </option>
@@ -49,7 +52,7 @@ export const ModelSelect2 = () => {
       <br />
       <br />
       <p>
-        {manufacturer} {id}
+        {manufacturer} {manufacturer && id}
       </p>
     </div>
   );
