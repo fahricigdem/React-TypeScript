@@ -10,8 +10,9 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-console.log("turbines", turbines);
-console.log(Array.from(new Set(turbines.map((t) => t.manufacturer))));
+// console.log("turbines", turbines);
+// console.log(Array.from(new Set(turbines.map((t) => t.manufacturer))));
+
 export const App = () => {
   const [mymanufacturer, setMymanufacturer] = useState("manufacturer");
   const [myId, setMyId] = useState("Id");
@@ -42,9 +43,9 @@ export const App = () => {
 
   const manufacturers = Array.from(new Set(results.map((t) => t.manufacturer)));
 
-  console.log("results", results);
-  console.log("manufacturers:", manufacturers);
-  console.log("mymanufacturer:", mymanufacturer, "myId:", myId);
+  // console.log("results", results);
+  // console.log("manufacturers:", manufacturers);
+  console.log(mymanufacturer, myId);
   return (
     <div>
       <h4>Hersteller/Modell</h4>
@@ -83,7 +84,7 @@ export const App = () => {
                             }}
                             value={turbine.manufacturer}
                             onClick={() => {
-                              setMyId("_");
+                              setMyId("all");
                               setMymanufacturer(turbine.manufacturer);
                             }}
                           >
