@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { turbines } from "./turbines";
 import {
   Combobox,
@@ -13,9 +13,20 @@ import "@reach/combobox/styles.css";
 // console.log("turbines", turbines);
 // console.log(Array.from(new Set(turbines.map((t) => t.manufacturer))));
 
-export const App = () => {
-  const [mymanufacturer, setMymanufacturer] = useState("manufacturer");
-  const [myId, setMyId] = useState("Id");
+export const ModelCombo = () => {
+  const [mymanufacturer, setMymanufacturer] = useState("");
+  const [myId, setMyId] = useState("");
+  const [selected, setSelected] = useState(turbines.slice(0, 20));
+
+  let newTurbines;
+  if (mymanufacturer)
+    newTurbines = turbines.filter((t) => t.manufacturer === mymanufacturer);
+  else if (myId) newTurbines = turbines.filter((t) => t._id === myId);
+  else newTurbines = [...turbines];
+
+  useEffect(() => {
+    setSelected(newTurbines);
+  }, [myId, mymanufacturer]);
 
   const [term, setTerm] = useState("");
 
@@ -43,16 +54,23 @@ export const App = () => {
 
   const manufacturers = Array.from(new Set(results.map((t) => t.manufacturer)));
 
-  // console.log("results", results);
-  // console.log("manufacturers:", manufacturers);
-  console.log(mymanufacturer, myId);
+  useEffect(() => {
+    console.log(
+      "selected=>",
+      selected.map((s) => `${s.manufacturer} - ${s.name}`)
+    );
+  }, [selected]);
+  useEffect(() => {
+    console.log("-->", mymanufacturer, " & ", myId);
+  }, [mymanufacturer, myId]);
+
   return (
     <div>
       <h4>Hersteller/Modell</h4>
       <Combobox>
         <ComboboxInput
           onChange={handleChange}
-          placeholder="vestas v123/150"
+          placeholder="vestas v126/3300"
           style={{
             width: 300,
             height: 40,
@@ -84,7 +102,7 @@ export const App = () => {
                             }}
                             value={turbine.manufacturer}
                             onClick={() => {
-                              setMyId("all");
+                              setMyId("");
                               setMymanufacturer(turbine.manufacturer);
                             }}
                           >
@@ -96,7 +114,7 @@ export const App = () => {
                             value={`${turbine?.manufacturer} ${turbine?.name}`}
                             onClick={() => {
                               setMyId(turbine._id);
-                              setMymanufacturer("_");
+                              setMymanufacturer("");
                             }}
                           />
                         </div>
@@ -108,13 +126,13 @@ export const App = () => {
                           value={`${turbine?.manufacturer} ${turbine?.name}`}
                           onClick={() => {
                             setMyId(turbine._id);
-                            setMymanufacturer("_");
+                            setMymanufacturer("");
                           }}
                         />
                       );
                     }
                   })
-                  //.slice(0, 4)
+                  //.slice(0, 10)
                 }
               </ComboboxList>
             ) : (
