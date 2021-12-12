@@ -35,24 +35,25 @@ export const ModelSelect2 = () => {
 
   return (
     <>
-      <HStack w="30rem">
+      <HStack w="25rem">
         <Select
+          w="13rem"
           onChange={(e) => {
             setManufacturer(e.target.value);
             setId("");
           }}
         >
-          <option value=""> Manufacturer - Alle</option>
+          <option value=""> Manufacturer</option>
           {manufacturerOptions}
         </Select>
         <Select
+          w="12rem"
           onChange={(e) => setId(e.target.value)}
           disabled={manufacturer.length === 0}
           value=""
         >
           <option value="">
-            Modell -{" "}
-            {id ? turbines.filter((t) => (t._id = id))[0].name : "Alle"}
+            {id ? turbines.filter((t) => (t._id = id))[0].name : "Modell"}
           </option>
           {modelOptions}
         </Select>
