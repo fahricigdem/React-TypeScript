@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { turbines } from "./turbines";
 import {
   Combobox,
   ComboboxInput,
@@ -9,29 +10,19 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-let turbines = [
-  { name: "Vestas", id: "1111", model: "AAA" },
-  { name: "Vestas", id: "2222", model: "BBB" },
-  { name: "Siemens", id: "3333", model: "XXX" },
-  { name: "Siemens", id: "4444", model: "YYY" },
-  { name: "aaaaas", id: "5555", model: "qqq" },
-  { name: "aaaaas", id: "6666", model: "lll" },
-];
-
 console.log("turbines", turbines);
+console.log(Array.from(new Set(turbines.map((t) => t.manufacturer))));
 export const App = () => {
-  const [myName, setMyName] = useState("Name");
+  const [mymanufacturer, setMymanufacturer] = useState("manufacturer");
   const [myId, setMyId] = useState("Id");
 
   const [term, setTerm] = useState("");
 
-  function compareFirstNames(a, b) {
-    //console.log("##", a.name.toLowerCase().charAt(0), b.name.toLowerCase());
-
-    if (a.name.toLowerCase() < b.name.toLowerCase()) {
+  function compareFirstmanufacturers(a, b) {
+    if (a.manufacturer.toLowerCase() < b.manufacturer.toLowerCase()) {
       return -1;
     }
-    if (a.name.toLowerCase() > b.name.toLowerCase()) {
+    if (a.manufacturer.toLowerCase() > b.manufacturer.toLowerCase()) {
       return 1;
     }
     return 0;
@@ -42,60 +33,69 @@ export const App = () => {
   };
 
   let results = turbines
-    .filter((t) => `${t?.name} ${t?.model}`.toLowerCase().includes(term))
-    .sort(compareFirstNames);
+    .filter((t) => `${t?.manufacturer} ${t?.name}`.toLowerCase().includes(term))
+    .sort(compareFirstmanufacturers)
+    .filter(
+      (t) =>
+        t?.manufacturer.toLowerCase().charAt(0) === term.toLowerCase().charAt(0)
+    );
 
-  const names = Array.from(new Set(results.map((t) => t.name)));
+  const manufacturers = Array.from(new Set(results.map((t) => t.manufacturer)));
 
   console.log("results", results);
-  console.log("myName, myId:", myName, myId);
+  console.log("manufacturers:", manufacturers);
+  console.log("mymanufacturer:", mymanufacturer, "myId:", myId);
   return (
     <div>
-      <h4>Lots of stuff going on</h4>
+      <h4>Hersteller/Modell</h4>
       <Combobox>
         <ComboboxInput
           onChange={handleChange}
+          placeholder="vestas v123/150"
           style={{
             width: 300,
-            margin: 0,
-            backgroundColor: "#ddd",
+            height: 40,
+            paddingLeft: "8px",
+            // backgroundColor: "#eee",
             border: "solid 1px black",
           }}
         />
         {results && (
           <ComboboxPopover
-            onChange={(e) => console.log(e.target)}
             style={{
               width: 300,
-              // maxHeight: "120px",
-              // overflowY: "auto"
+
+              maxHeight: "280px",
+              overflowY: "auto",
             }}
           >
             {results.length > 0 ? (
               <ComboboxList>
-                {results
-                  ?.map((turbine, index) => {
-                    if (names.includes(turbine.name)) {
-                      names.shift();
+                {
+                  results?.map((turbine, index) => {
+                    if (manufacturers.includes(turbine.manufacturer)) {
+                      manufacturers.shift();
                       return (
                         <div key={index}>
                           <ComboboxOption
                             style={{
-                              fontWeight: "bold",
-                              backgroundColor: "#ddf",
+                              backgroundColor: "#eee",
                             }}
-                            value={turbine.name}
+                            value={turbine.manufacturer}
                             onClick={() => {
                               setMyId("_");
-                              setMyName(turbine.name);
+                              setMymanufacturer(turbine.manufacturer);
                             }}
-                          />
+                          >
+                            ➔ <ComboboxOptionText />
+                          </ComboboxOption>
+
                           <ComboboxOption
                             key={index}
-                            value={`${turbine?.name} ${turbine?.model}`}
+                            value={`${turbine?.manufacturer} ${turbine?.name}`}
                             onClick={() => {
-                              setMyId(turbine.id);
-                              setMyName("_");
+                              setMyId(turbine._id);
+                              setMymanufacturer("_");
                             }}
                           />
                         </div>
@@ -104,16 +104,17 @@ export const App = () => {
                       return (
                         <ComboboxOption
                           key={index}
-                          value={`${turbine?.name} ${turbine?.model}`}
+                          value={`${turbine?.manufacturer} ${turbine?.name}`}
                           onClick={() => {
-                            setMyId(turbine.id);
-                            setMyName("_");
+                            setMyId(turbine._id);
+                            setMymanufacturer("_");
                           }}
                         />
                       );
                     }
                   })
-                  .slice(0, 4)}
+                  //.slice(0, 4)
+                }
               </ComboboxList>
             ) : (
               <div>
